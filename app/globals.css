@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', sans-serif;
+    
+    /* Default theme variables (minty-fresh) */
+    --theme-primary: #10B981;
+    --theme-secondary: #F3E8FF;
+    --theme-accent: #A7F3D0;
+    --theme-background: #F0FDF4;
+    --theme-surface: #FFFFFF;
+    --theme-text: #064E3B;
+    --theme-text-secondary: #6B7280;
+    --theme-border: #D1FAE5;
+  }
+  
+  * {
+    font-family: var(--font-inter);
+  }
+  
+  html {
+    font-family: var(--font-inter);
+  }
+  
+  body {
+    font-family: var(--font-inter);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-variant-numeric: tabular-nums;
+    background-color: var(--theme-background);
+    color: var(--theme-text);
+  }
+}
+
+:root {
+  --border: 214, 214, 214;
+  --input: 214, 214, 214;
+  --ring: 16, 185, 129; /* Use theme primary color for ring */
+  --background: 240, 253, 244; /* Use theme background color */
+  --foreground: 6, 78, 59; /* Use theme text color */
+  --primary: 16, 185, 129; /* Use theme primary color */
+  --primary-foreground: 255, 255, 255;
+  --secondary: 243, 232, 255; /* Use theme secondary color */
+  --secondary-foreground: 6, 78, 59; /* Use theme text color */
+  --destructive: 239, 68, 68;
+  --destructive-foreground: 255, 255, 255;
+  --muted: 167, 243, 208; /* Use theme accent color */
+  --muted-foreground: 107, 114, 128; /* Use theme text secondary color */
+  --accent: 167, 243, 208; /* Use theme accent color */
+  --accent-foreground: 6, 78, 59; /* Use theme text color */
+  --popover: 255, 255, 255; /* Use theme surface color */
+  --popover-foreground: 6, 78, 59; /* Use theme text color */
+  --card: 255, 255, 255; /* Use theme surface color */
+  --card-foreground: 6, 78, 59; /* Use theme text color */
+  --radius: 0.5rem;
+}
+
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Focus styles */
+.focus\:ring-2:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fun typography utilities */
+@layer utilities {
+  .text-fun {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+  
+  .text-vibed {
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+  }
+  
+  .text-playful {
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    line-height: 1.4;
+  }
+  
+  .text-heading {
+    font-weight: 800;
+    letter-spacing: -0.075em;
+    line-height: 1;
+  }
+  
+  .text-body {
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.6;
+  }
+  
+  .text-caption {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    font-size: 0.875rem;
+  }
+  
+  /* Theme utilities */
+  .theme-primary {
+    color: var(--theme-primary);
+  }
+  
+  .theme-secondary {
+    color: var(--theme-secondary);
+  }
+  
+  .theme-accent {
+    color: var(--theme-accent);
+  }
+  
+  .theme-background {
+    background-color: var(--theme-background);
+  }
+  
+  .theme-surface {
+    background-color: var(--theme-surface);
+  }
+  
+  .theme-text {
+    color: var(--theme-text);
+  }
+  
+  .theme-text-secondary {
+    color: var(--theme-text-secondary);
+  }
+  
+  .theme-border {
+    border-color: var(--theme-border);
+  }
+  
+  .bg-theme-primary {
+    background-color: var(--theme-primary);
+  }
+  
+  .bg-theme-secondary {
+    background-color: var(--theme-secondary);
+  }
+  
+  .bg-theme-accent {
+    background-color: var(--theme-accent);
+  }
+  
+  .border-theme-primary {
+    border-color: var(--theme-primary);
+  }
+  
+  .border-theme-border {
+    border-color: var(--theme-border);
+  }
+  
+  /* Theme switcher dropdown positioning */
+  .theme-switcher-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.75rem;
+    z-index: 9999;
+    background-color: white !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: dropdownFadeIn 0.2s ease-out;
+  }
+  
+  @keyframes dropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Ensure dropdown content has solid background */
+  .theme-switcher-dropdown * {
+    background-color: inherit;
+  }
+  
+  .theme-switcher-dropdown button {
+    background-color: white !important;
+  }
+  
+  .theme-switcher-dropdown button:hover {
+    background-color: var(--theme-accent) !important;
+  }
+  
+  /* Ensure dropdown is above everything */
+  .theme-switcher-container {
+    position: relative;
+    z-index: 1000;
+  }
+}
