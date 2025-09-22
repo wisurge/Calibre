@@ -7,6 +7,7 @@ import { ProgressBar } from '@/components/atoms/ProgressBar'
 import { Button } from '@/components/atoms/Button'
 import { Flame } from 'lucide-react'
 import { useThemeStyles } from '@/hooks/useThemeStyles'
+import { trackHabitCompletion } from '@/lib/analytics'
 
 export interface Habit {
   id: number
@@ -26,6 +27,15 @@ export const HabitCard = ({ habits, onToggleHabit, className }: HabitCardProps) 
   const completedHabits = habits.filter(habit => habit.completed).length
   const habitProgress = (completedHabits / habits.length) * 100
 
+  const handleHabitToggle = (habit: Habit) => {
+    onToggleHabit(habit.id)
+    if (!habit.completed) {
+      // Track completion when habit is marked as done
+      const streak = habits.filter(h => h.completed).length + 1
+      trackHabitCompletion(habit.name, streak)
+    }
+  }
+
   return (
     <Card className={`theme-surface rounded-2xl shadow-sm border-0 p-8 ${className}`}>
       <div className="flex items-center space-x-3 mb-6">
@@ -43,7 +53,7 @@ export const HabitCard = ({ habits, onToggleHabit, className }: HabitCardProps) 
           <div key={habit.id} className="flex items-center space-x-4 p-4 bg-theme-accent rounded-xl">
             <Checkbox
               checked={habit.completed}
-              onChange={() => onToggleHabit(habit.id)}
+              onChange={() => handleHabitToggle(habit)}
               color="purple"
             />
             <div className="flex-1">

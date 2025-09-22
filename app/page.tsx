@@ -11,9 +11,15 @@ import { TaskCard, Task } from '@/components/molecules/TaskCard'
 import { ReflectionComponent } from '@/components/molecules/ReflectionComponent'
 import { Heart, Dumbbell, BookOpen } from 'lucide-react'
 import { useThemeStyles } from '@/hooks/useThemeStyles'
+import { trackPageView } from '@/lib/analytics'
 
 export default function Dashboard() {
   const theme = useThemeStyles() // Apply theme styles
+  
+  // Track page view
+  React.useEffect(() => {
+    trackPageView('dashboard', 'main')
+  }, [])
   
   const [habits, setHabits] = useState<Habit[]>([
     { id: 1, name: 'Morning Meditation', time: '7:00 AM', completed: true },

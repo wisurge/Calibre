@@ -11,10 +11,16 @@ import { MintyFreshPreview, LilacDreamPreview, BlushHarmonyPreview, SkySerenePre
 import { Palette } from 'lucide-react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useThemeStyles } from '@/hooks/useThemeStyles'
+import { trackPageView } from '@/lib/analytics'
 
 export default function Customize() {
   const { currentTheme, setTheme, themes } = useTheme()
   const theme = useThemeStyles() // Apply theme styles
+  
+  // Track page view
+  React.useEffect(() => {
+    trackPageView('customize', 'theme_selection')
+  }, [])
   
   const [selectedTheme, setSelectedTheme] = useState(currentTheme.id)
 

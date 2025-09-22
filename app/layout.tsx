@@ -4,6 +4,8 @@ import './globals.css'
 import { Footer } from '@/components/organisms/Footer'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SidebarProvider } from '@/contexts/SidebarContext'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -114,6 +116,8 @@ export default function RootLayout({
             <Footer />
           </SidebarProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

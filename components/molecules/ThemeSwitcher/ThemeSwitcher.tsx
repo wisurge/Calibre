@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { Palette } from 'lucide-react'
+import { trackThemeChange } from '@/lib/analytics'
 
 export const ThemeSwitcher = () => {
   const { currentTheme, setTheme, themes } = useTheme()
@@ -45,6 +46,7 @@ export const ThemeSwitcher = () => {
                 onClick={() => {
                   setTheme(theme.id)
                   setIsOpen(false)
+                  trackThemeChange(theme.name)
                 }}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
                   currentTheme.id === theme.id

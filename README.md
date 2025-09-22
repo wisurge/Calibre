@@ -12,6 +12,7 @@ A modern productivity application built with Next.js 14, featuring habit trackin
 - 🧩 **Atomic Design** - Scalable component architecture
 - 📱 **Responsive** - Mobile-first design approach
 - 🔒 **Supabase Integration** - Ready for backend integration
+- 📊 **Analytics** - Vercel Analytics and Speed Insights integration
 
 ## 🚀 Getting Started
 
