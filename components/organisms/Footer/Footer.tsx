@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Twitter, Instagram, Youtube, Heart, Coffee } from 'lucide-react'
 import { useTheme } from '@/contexts/ThemeContext'
+import { Logo } from '@/components/atoms/Logo'
 
 export const Footer = () => {
   // Safely get theme context
@@ -25,6 +26,11 @@ export const Footer = () => {
   return (
     <footer className="theme-background border-t border-theme-border py-12 mt-16">
       <div className="container mx-auto px-4">
+        {/* Logo Section */}
+        <div className="flex justify-center mb-8">
+          <Logo size="lg" variant="full" />
+        </div>
+        
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-8 lg:space-y-0">
           {/* Rachel's Personal Message */}
           <div className="flex-1 max-w-md">
@@ -33,7 +39,7 @@ export const Footer = () => {
                 <span className="text-white font-bold text-lg">R</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold theme-text">Hey there! I'm Rachel ✨</h3>
+                <h3 className="text-h4 theme-text">Hey there! I'm Rachel ✨</h3>
                 <p className="text-sm theme-text-secondary">Founder & Chief Dreamer</p>
               </div>
             </div>

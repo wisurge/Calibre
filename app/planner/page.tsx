@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Header } from '@/components/organisms/Header'
 import { Sidebar } from '@/components/organisms/Sidebar'
 import { Button } from '@/components/atoms/Button'
-import { Card } from '@/components/molecules/Card'
+import { Card } from '@/components/atoms/Card'
 import { Checkbox } from '@/components/atoms/Checkbox'
 import { MoodSelector, Mood } from '@/components/molecules/MoodSelector'
 import { ChevronLeft, ChevronRight, Sun, Plus, Calendar, Heart, Dumbbell, BookOpen } from 'lucide-react'
@@ -145,7 +145,7 @@ export default function Planner() {
                 {/* Morning Routine */}
                 <Card className="bg-white rounded-2xl shadow-sm border-0 p-6">
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold text-gray-900">Morning Routine</h2>
+                    <h2 className="text-h3 theme-text">Morning Routine</h2>
                     {morningTasks.some(task => task.streak) && (
                       <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
                         {morningTasks.find(task => task.streak)?.streak} Day Streak!
@@ -184,7 +184,7 @@ export default function Planner() {
 
                 {/* Afternoon Tasks */}
                 <Card className="bg-white rounded-2xl shadow-sm border-0 p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-6">Afternoon Tasks</h2>
+                  <h2 className="text-h3 theme-text mb-6">Afternoon Tasks</h2>
                   <div className="space-y-3">
                     {afternoonTasks.map((task) => (
                       <div key={task.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
@@ -217,7 +217,7 @@ export default function Planner() {
 
                 {/* Evening Reflection */}
                 <Card className="bg-white rounded-2xl shadow-sm border-0 p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-6">Evening Reflection</h2>
+                  <h2 className="text-h3 theme-text mb-6">Evening Reflection</h2>
                   <div className="space-y-3">
                     {eveningTasks.map((task) => (
                       <div key={task.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
@@ -260,7 +260,7 @@ export default function Planner() {
 
                 {/* Habit Tracker */}
                 <Card className="bg-white rounded-2xl shadow-sm border-0 p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Habit Tracker</h3>
+                  <h3 className="text-h4 theme-text mb-4">Habit Tracker</h3>
                   <div className="space-y-4">
                     {habits.map((habit) => {
                       const IconComponent = habit.icon

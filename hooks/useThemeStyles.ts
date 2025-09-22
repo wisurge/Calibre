@@ -7,11 +7,15 @@ export function useThemeStyles() {
   const { currentTheme, isLoaded } = useTheme()
 
   useEffect(() => {
-    // Only apply theme styles after the context has loaded
-    if (!isLoaded) return
+    // Only apply theme styles after the context has loaded and on client side
+    if (!isLoaded || typeof window === 'undefined') return
 
     // Apply CSS custom properties for the current theme
     const root = document.documentElement
+    
+    // Check if theme variables are already set to avoid unnecessary updates
+    const currentPrimary = root.style.getPropertyValue('--theme-primary')
+    if (currentPrimary === currentTheme.colors.primary) return
     
     root.style.setProperty('--theme-primary', currentTheme.colors.primary)
     root.style.setProperty('--theme-secondary', currentTheme.colors.secondary)

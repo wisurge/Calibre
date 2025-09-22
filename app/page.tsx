@@ -97,7 +97,7 @@ export default function Dashboard() {
 
                 {/* Habit Tracker */}
                 <Card className="theme-surface rounded-2xl shadow-sm border-0 p-6">
-                  <h3 className="text-lg font-semibold theme-text mb-4">Habit Tracker</h3>
+                  <h3 className="text-h4 theme-text mb-4">Habit Tracker</h3>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-theme-secondary rounded-full flex items-center justify-center">

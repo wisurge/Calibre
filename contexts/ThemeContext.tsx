@@ -13,18 +13,23 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [currentTheme, setCurrentTheme] = useState<Theme>(defaultTheme)
+  const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
+    // Initialize with saved theme if available, otherwise use default
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('routinsie-theme')
+      if (savedTheme) {
+        const theme = themes.find(t => t.id === savedTheme)
+        if (theme) {
+          return theme
+        }
+      }
+    }
+    return defaultTheme
+  })
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    // Load theme from localStorage on mount
-    const savedTheme = localStorage.getItem('routinsie-theme')
-    if (savedTheme) {
-      const theme = themes.find(t => t.id === savedTheme)
-      if (theme) {
-        setCurrentTheme(theme)
-      }
-    }
+    // Mark as loaded after hydration
     setLoaded(true)
   }, [])
 

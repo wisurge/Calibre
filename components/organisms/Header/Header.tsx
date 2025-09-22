@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Search, Bell, User } from 'lucide-react'
 import { Button } from '@/components/atoms/Button'
+import { Logo } from '@/components/atoms/Logo'
 import { useThemeStyles } from '@/hooks/useThemeStyles'
 import { ThemeSwitcher } from '@/components/molecules/ThemeSwitcher'
 
@@ -23,11 +24,8 @@ export const Header = () => {
     <header className="theme-surface shadow-sm border-b border-theme-border sticky top-0 z-50">
       <div className="container mx-auto px-4 py-2 relative">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-7 h-7 bg-theme-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">★</span>
-            </div>
-            <span className="text-xl text-vibed theme-text">Routinsie</span>
+          <Link href="/" className="flex items-center">
+            <Logo size="md" variant="full" />
           </Link>
           
           <nav className="hidden md:flex space-x-6">
