@@ -20,7 +20,7 @@ export const Sidebar = () => {
   ]
 
   return (
-    <aside className={`${isCollapsed ? 'w-16' : 'w-60'} bg-theme-accent min-h-screen border-r border-theme-border transition-all duration-300 ease-in-out flex flex-col`}>
+    <aside className={`hidden lg:flex ${isCollapsed ? 'w-16' : 'w-60'} bg-theme-accent min-h-screen border-r border-theme-border transition-all duration-300 ease-in-out flex-col`}>
       <div className="p-4 flex-1">
         <nav className="space-y-1">
           {navItems.map((item) => {

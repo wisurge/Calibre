@@ -67,12 +67,12 @@ export default function Dashboard() {
       <Header />
       <div className="flex">
         <Sidebar />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {/* Left Column - Main Content */}
-              <div className="lg:col-span-2 space-y-8">
+              <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
                 {/* Crush Your Day Card */}
                 <HabitCard
                   habits={habits}
@@ -93,7 +93,7 @@ export default function Dashboard() {
               </div>
 
               {/* Right Column - Sidebar */}
-              <div className="space-y-8">
+              <div className="space-y-4 sm:space-y-6 lg:space-y-8">
                 {/* Mood Selector */}
                 <MoodSelector
                   moods={moods}

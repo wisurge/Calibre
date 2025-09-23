@@ -237,15 +237,57 @@ html.loaded {
     font-size: 1.125rem;
   }
   
-  @media (max-width: 768px) {
+  /* Mobile-specific improvements */
+  @media (max-width: 640px) {
+    .text-h1 {
+      font-size: 1.75rem;
+      letter-spacing: 0.025em;
+    }
+    
+    .text-h2 {
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    
+    .text-h3 {
+      font-size: 1.25rem;
+      letter-spacing: 0.015em;
+    }
+    
+    .text-h4 {
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+    }
+    
     .text-display {
-      font-size: 2.5rem;
-      letter-spacing: 0.04em;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
     }
     
     .text-subtitle {
-      font-size: 1rem;
-      letter-spacing: 0.015em;
+      font-size: 0.875rem;
+      letter-spacing: 0.01em;
+    }
+  }
+  
+  /* Touch-friendly button improvements */
+  @media (max-width: 768px) {
+    button, 
+    [role="button"], 
+    .cursor-pointer {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Mobile scroll improvements */
+  @media (max-width: 768px) {
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .overflow-x-hidden {
+      overflow-x: hidden;
     }
   }
   
