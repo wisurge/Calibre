@@ -4,6 +4,9 @@ import './globals.css'
 import { Footer } from '@/components/organisms/Footer'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SidebarProvider } from '@/contexts/SidebarContext'
+import { NotificationProvider } from '@/contexts/NotificationContext'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { ToastContainer } from '@/components/molecules/Toast'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -110,12 +113,17 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans overflow-x-hidden`}>
-        <ThemeProvider>
-          <SidebarProvider>
-            {children}
-            <Footer />
-          </SidebarProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <SidebarProvider>
+              <NotificationProvider>
+                {children}
+                <Footer />
+                <ToastContainer />
+              </NotificationProvider>
+            </SidebarProvider>
+          </ThemeProvider>
+        </AuthProvider>
         <Analytics />
         <SpeedInsights />
       </body>

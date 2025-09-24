@@ -5,7 +5,7 @@ import { Button } from '@/components/atoms/Button'
 import { Sparkles } from 'lucide-react'
 
 export interface Goal {
-  id: number
+  id: string | number
   title: string
   description: string
   progress: number
@@ -16,8 +16,8 @@ export interface Goal {
 
 export interface GoalCardProps {
   goal: Goal
-  onPeekProgress: (id: number) => void
-  onMarkComplete: (id: number) => void
+  onPeekProgress: (id: string | number) => void
+  onMarkComplete: (id: string | number) => void
   className?: string
 }
 

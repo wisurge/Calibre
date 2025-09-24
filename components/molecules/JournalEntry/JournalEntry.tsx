@@ -6,7 +6,7 @@ import { CheckCircle, Cloud, Heart, Sparkles, Sun, Leaf } from 'lucide-react'
 import { useThemeStyles } from '@/hooks/useThemeStyles'
 
 export interface JournalEntry {
-  id: number
+  id: string | number
   date: string
   content: string
   icon: React.ComponentType<{ className?: string }>

@@ -14,6 +14,7 @@ export interface ReflectionComponentProps {
   description?: string
   placeholder?: string
   promptText?: string
+  isLoading?: boolean
 }
 
 export const ReflectionComponent = ({ 
@@ -23,7 +24,8 @@ export const ReflectionComponent = ({
   title = "Today's Reflection",
   description,
   placeholder,
-  promptText
+  promptText,
+  isLoading = false
 }: ReflectionComponentProps) => {
   useThemeStyles() // Apply theme styles
   const [reflection, setReflection] = useState('')
@@ -90,14 +92,16 @@ export const ReflectionComponent = ({
         <div className={variant === 'journal' ? 'flex justify-end' : 'w-full'}>
           <Button 
             onClick={handleSave}
-            className={`${variant === 'journal' ? 'px-8 py-3' : 'w-full py-3'} bg-theme-primary text-white rounded-xl font-medium flex items-center justify-center space-x-2`}
+            disabled={!reflection.trim() || isLoading}
+            className={`${variant === 'journal' ? 'px-8 py-3' : 'w-full py-3'} bg-theme-primary text-white rounded-xl font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             <Sparkles className="w-4 h-4" />
-            <span>Save My Thoughts</span>
+            <span>{isLoading ? 'Saving...' : 'Save My Thoughts'}</span>
           </Button>
         </div>
       </div>
     </Card>
   )
 }
+
 

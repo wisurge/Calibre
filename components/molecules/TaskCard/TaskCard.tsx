@@ -23,6 +23,10 @@ export interface TaskCardProps {
 export const TaskCard = ({ tasks, onToggleTask, className }: TaskCardProps) => {
   useThemeStyles() // Apply theme styles
   
+  const handleTaskToggle = (taskId: number) => {
+    onToggleTask(taskId)
+  }
+  
   return (
     <Card className={`theme-surface rounded-2xl shadow-sm border-0 p-4 sm:p-6 lg:p-8 ${className}`}>
       <div className="flex items-center space-x-3 mb-4 sm:mb-6">
@@ -40,7 +44,7 @@ export const TaskCard = ({ tasks, onToggleTask, className }: TaskCardProps) => {
           <div key={task.id} className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-theme-accent rounded-xl">
             <Checkbox
               checked={task.completed}
-              onChange={() => onToggleTask(task.id)}
+              onChange={() => handleTaskToggle(task.id)}
               color="purple"
             />
             <div className="flex-1 min-w-0">

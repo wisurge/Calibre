@@ -204,3 +204,4 @@ CREATE TRIGGER update_journal_entries_updated_at BEFORE UPDATE ON public.journal
 CREATE TRIGGER update_themes_updated_at BEFORE UPDATE ON public.themes
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
+

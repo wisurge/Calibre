@@ -1,9 +1,34 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Validate environment variables
+if (!supabaseUrl) {
+  throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL environment variable')
+}
+
+if (!supabaseAnonKey) {
+  throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable')
+}
+
+// Validate URL format
+try {
+  new URL(supabaseUrl)
+} catch {
+  throw new Error(`Invalid NEXT_PUBLIC_SUPABASE_URL: ${supabaseUrl}. Must be a valid HTTP or HTTPS URL.`)
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    // Enable email confirmation
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    // This will require email confirmation for new signups
+    flowType: 'pkce'
+  }
+})
 
 // Database types
 export interface User {
@@ -70,4 +95,5 @@ export interface Theme {
   created_at: string
   updated_at: string
 }
+
 
