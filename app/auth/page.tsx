@@ -85,7 +85,7 @@ export default function AuthPage() {
           mode={mode}
           onSubmit={handleAuth}
           isLoading={isLoading}
-          error={error}
+          error={error || undefined}
           onModeChange={handleModeChange}
         />
       </div>

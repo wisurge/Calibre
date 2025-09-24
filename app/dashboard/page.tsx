@@ -15,11 +15,13 @@ import { trackPageView } from '@/lib/analytics'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import { useHabits, useTasks, useJournalEntries } from '@/hooks/useDatabase'
 import { useNotifications } from '@/contexts/NotificationContext'
+import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/atoms/Button'
 
 export default function Dashboard() {
   const theme = useThemeStyles() // Apply theme styles
   const { addNotification } = useNotifications()
+  const { user } = useAuth()
   
   // Track page view
   React.useEffect(() => {
@@ -45,11 +47,11 @@ export default function Dashboard() {
     { id: 'tired', emoji: '😩', label: 'Tired', color: 'gray' },
   ]
 
-  const handleToggleHabit = async (id: string) => {
+  const handleToggleHabit = async (id: string | number) => {
     try {
       const habit = habits.find(h => h.id === id)
       if (habit) {
-        await toggleHabit(id, !habit.completed)
+        await toggleHabit(id.toString(), !habit.completed)
         addNotification({
           type: 'success',
           title: 'Habit updated',
@@ -65,11 +67,11 @@ export default function Dashboard() {
     }
   }
 
-  const handleToggleTask = async (id: string) => {
+  const handleToggleTask = async (id: string | number) => {
     try {
       const task = tasks.find(t => t.id === id)
       if (task) {
-        await toggleTask(id, !task.completed)
+        await toggleTask(id.toString(), !task.completed)
         addNotification({
           type: 'success',
           title: 'Task updated',
@@ -180,18 +182,12 @@ export default function Dashboard() {
                   <HabitCard
                     habits={habits}
                     onToggleHabit={handleToggleHabit}
-                    loading={habitsLoading}
-                    onCreateHabit={handleCreateHabit}
-                    isCreating={isCreatingHabit}
                   />
 
                   {/* What Needs Love Today Card */}
                   <TaskCard
                     tasks={tasks}
                     onToggleTask={handleToggleTask}
-                    loading={tasksLoading}
-                    onCreateTask={handleCreateTask}
-                    isCreating={isCreatingTask}
                   />
 
                   {/* Today's Reflection Card */}

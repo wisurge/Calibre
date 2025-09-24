@@ -215,7 +215,7 @@ export const useGoals = () => {
     }
   }
 
-  const createGoal = async (goal: Omit<Goal, 'id' | 'created_at' | 'updated_at'>) => {
+  const createGoal = async (goal: Omit<Goal, 'id' | 'user_id' | 'created_at' | 'updated_at'>) => {
     if (!user) return
     
     try {

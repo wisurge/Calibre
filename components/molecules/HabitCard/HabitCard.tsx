@@ -10,7 +10,7 @@ import { useThemeStyles } from '@/hooks/useThemeStyles'
 import { trackHabitCompletion } from '@/lib/analytics'
 
 export interface Habit {
-  id: number
+  id: string | number
   name: string
   time: string
   completed: boolean
@@ -18,7 +18,7 @@ export interface Habit {
 
 export interface HabitCardProps {
   habits: Habit[]
-  onToggleHabit: (id: number) => void
+  onToggleHabit: (id: string | number) => void
   className?: string
 }
 

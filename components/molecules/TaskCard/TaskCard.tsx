@@ -8,7 +8,7 @@ import { Zap } from 'lucide-react'
 import { useThemeStyles } from '@/hooks/useThemeStyles'
 
 export interface Task {
-  id: number
+  id: string | number
   name: string
   priority: 'High' | 'Medium' | 'Low'
   completed: boolean
@@ -16,14 +16,14 @@ export interface Task {
 
 export interface TaskCardProps {
   tasks: Task[]
-  onToggleTask: (id: number) => void
+  onToggleTask: (id: string | number) => void
   className?: string
 }
 
 export const TaskCard = ({ tasks, onToggleTask, className }: TaskCardProps) => {
   useThemeStyles() // Apply theme styles
   
-  const handleTaskToggle = (taskId: number) => {
+  const handleTaskToggle = (taskId: string | number) => {
     onToggleTask(taskId)
   }
   

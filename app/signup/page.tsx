@@ -76,7 +76,7 @@ export default function SignupPage() {
           mode="signup"
           onSubmit={handleSignup}
           isLoading={isLoading}
-          error={error}
+          error={error || undefined}
           onModeChange={() => router.push('/login')}
         />
         
