@@ -16,7 +16,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {
             'bg-theme-primary text-white hover:opacity-90': variant === 'primary',
             'bg-theme-secondary text-theme-text hover:opacity-80': variant === 'secondary',
-            'border border-theme-border hover:bg-theme-accent hover:text-theme-text': variant === 'outline',
+            'border border-theme-border bg-transparent hover:bg-theme-accent hover:text-theme-text transition-all duration-200': variant === 'outline',
             'hover:bg-theme-accent hover:text-theme-text': variant === 'ghost',
           },
           {

@@ -23,6 +23,7 @@ export const Header = () => {
 
   const navItems = [
     { href: '/dashboard', label: 'Dashboard' },
+    { href: '/calendar', label: 'Calendar' },
     { href: '/journal', label: 'Journal' },
     { href: '/goals', label: 'Goals' },
     { href: '/customize', label: 'Customize' },

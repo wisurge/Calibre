@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Footer } from '@/components/organisms/Footer'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SidebarProvider } from '@/contexts/SidebarContext'
 import { NotificationProvider } from '@/contexts/NotificationContext'
@@ -9,6 +8,9 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { ToastContainer } from '@/components/molecules/Toast'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { AppContent } from '@/components/AppContent'
+import { RouteTransitionProvider, RouteTransitionIndicator } from '@/components/RouteTransition'
+import React from 'react'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -17,8 +19,9 @@ const inter = Inter({
   display: 'swap'
 })
 
+
 export const metadata: Metadata = {
-  title: 'Routinsie - Your Personal Productivity Companion',
+  title: 'Calibre - Your Personal Standards, Your Growth',
   description: 'A modern productivity app built with Next.js, featuring habit tracking, goal setting, journaling, and daily planning.',
   icons: {
     icon: [
@@ -43,7 +46,16 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  const savedTheme = localStorage.getItem('routinsie-theme');
+                  // Check for old routinsie-theme key and migrate to calibre-theme
+                  let savedTheme = localStorage.getItem('calibre-theme');
+                  if (!savedTheme) {
+                    const oldTheme = localStorage.getItem('routinsie-theme');
+                    if (oldTheme) {
+                      localStorage.setItem('calibre-theme', oldTheme);
+                      localStorage.removeItem('routinsie-theme');
+                      savedTheme = oldTheme;
+                    }
+                  }
                   const themes = {
                     'minty-fresh': {
                       primary: '#10B981',
@@ -117,9 +129,12 @@ export default function RootLayout({
           <ThemeProvider>
             <SidebarProvider>
               <NotificationProvider>
-                {children}
-                <Footer />
-                <ToastContainer />
+                <RouteTransitionProvider>
+                  <AppContent>
+                    {children}
+                  </AppContent>
+                  <ToastContainer />
+                </RouteTransitionProvider>
               </NotificationProvider>
             </SidebarProvider>
           </ThemeProvider>

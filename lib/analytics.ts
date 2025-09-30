@@ -1,4 +1,4 @@
-// Analytics configuration for Routinsie
+// Analytics configuration for Calibre
 import { track } from '@vercel/analytics'
 
 // Track theme changes

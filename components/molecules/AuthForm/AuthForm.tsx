@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 export interface AuthFormProps {
   mode: 'login' | 'signup'
   onSubmit: (data: AuthFormData) => Promise<void>
+  onGoogleSignIn?: () => Promise<void>
   isLoading?: boolean
   error?: string
   onModeChange: () => void
@@ -84,6 +85,7 @@ InputField.displayName = 'InputField'
 export const AuthForm: React.FC<AuthFormProps> = ({
   mode,
   onSubmit,
+  onGoogleSignIn,
   isLoading = false,
   error,
   onModeChange
@@ -155,6 +157,16 @@ export const AuthForm: React.FC<AuthFormProps> = ({
     }
   }
 
+  const handleGoogleSignIn = async () => {
+    if (onGoogleSignIn) {
+      try {
+        await onGoogleSignIn()
+      } catch (err) {
+        // Error handling is done by parent component
+      }
+    }
+  }
+
 
   return (
     <Card className="w-full max-w-md mx-auto p-8 space-y-6">
@@ -166,7 +178,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         <p className="text-sm theme-text-secondary">
           {mode === 'login' 
             ? 'Sign in to continue your journey' 
-            : 'Join Routinsie and start building better habits'
+            : 'Join Calibre and elevate your standards'
           }
         </p>
       </div>
@@ -282,6 +294,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           size="lg"
           className="w-full"
           disabled={isLoading}
+          onClick={handleGoogleSignIn}
         >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
             <path

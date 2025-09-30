@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react'
 
 interface SidebarContextType {
   isCollapsed: boolean
@@ -15,7 +15,17 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Load sidebar state from localStorage on mount
-    const savedState = localStorage.getItem('routinsie-sidebar-collapsed')
+    let savedState = localStorage.getItem('calibre-sidebar-collapsed')
+    
+    // Migrate from old routinsie key if needed
+    if (!savedState) {
+      const oldState = localStorage.getItem('routinsie-sidebar-collapsed')
+      if (oldState !== null) {
+        localStorage.setItem('calibre-sidebar-collapsed', oldState)
+        localStorage.removeItem('routinsie-sidebar-collapsed')
+        savedState = oldState
+      }
+    }
     
     if (savedState !== null) {
       setIsCollapsed(JSON.parse(savedState))
@@ -25,20 +35,23 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const toggleSidebar = () => {
     const newState = !isCollapsed
     setIsCollapsed(newState)
-    localStorage.setItem('routinsie-sidebar-collapsed', JSON.stringify(newState))
+    localStorage.setItem('calibre-sidebar-collapsed', JSON.stringify(newState))
   }
 
   const setSidebarCollapsed = (collapsed: boolean) => {
     setIsCollapsed(collapsed)
-    localStorage.setItem('routinsie-sidebar-collapsed', JSON.stringify(collapsed))
+    localStorage.setItem('calibre-sidebar-collapsed', JSON.stringify(collapsed))
   }
 
+  // Memoize context value to prevent unnecessary re-renders
+  const contextValue = useMemo(() => ({ 
+    isCollapsed, 
+    toggleSidebar, 
+    setSidebarCollapsed
+  }), [isCollapsed])
+
   return (
-    <SidebarContext.Provider value={{ 
-      isCollapsed, 
-      toggleSidebar, 
-      setSidebarCollapsed
-    }}>
+    <SidebarContext.Provider value={contextValue}>
       {children}
     </SidebarContext.Provider>
   )

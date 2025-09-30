@@ -16,7 +16,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
     // Initialize with saved theme if available, otherwise use default
     if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('routinsie-theme')
+      let savedTheme = localStorage.getItem('calibre-theme')
+      
+      // Migrate from old routinsie-theme key if needed
+      if (!savedTheme) {
+        const oldTheme = localStorage.getItem('routinsie-theme')
+        if (oldTheme) {
+          localStorage.setItem('calibre-theme', oldTheme)
+          localStorage.removeItem('routinsie-theme')
+          savedTheme = oldTheme
+        }
+      }
+      
       if (savedTheme) {
         const theme = themes.find(t => t.id === savedTheme)
         if (theme) {
@@ -37,7 +48,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const theme = themes.find(t => t.id === themeId)
     if (theme) {
       setCurrentTheme(theme)
-      localStorage.setItem('routinsie-theme', themeId)
+      localStorage.setItem('calibre-theme', themeId)
     }
   }
 

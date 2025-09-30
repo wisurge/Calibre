@@ -1,6 +1,6 @@
-# Routinsie
+# Calibre
 
-A modern productivity application built with Next.js 14, featuring habit tracking, goal setting, journaling, and daily planning. Built following atomic design principles with TypeScript and Tailwind CSS.
+A modern productivity application built with Next.js 14, featuring habit tracking, goal setting, journaling, and daily planning. Calibre isn't just a planner - it's a reflection of your standards, your choices, your growth. Every block of time is a statement of who you are becoming. Built following atomic design principles with TypeScript and Tailwind CSS.
 
 ## ✨ Features
 
@@ -27,7 +27,7 @@ A modern productivity application built with Next.js 14, featuring habit trackin
 1. **Clone the repository:**
 ```bash
 git clone <repository-url>
-cd routinsie
+cd calibre
 ```
 
 2. **Install dependencies:**
@@ -59,7 +59,7 @@ yarn dev
 ## 📁 Project Structure
 
 ```
-routinsie/
+calibre/
 ├── app/                    # Next.js App Router
 │   ├── globals.css        # Global styles and CSS variables
 │   ├── layout.tsx         # Root layout with footer

@@ -7,13 +7,13 @@ export default function About() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            About Routinsie
+            About Calibre
           </h1>
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 mb-6">
-              Routinsie is a modern Next.js application built with atomic design principles, 
-              TypeScript, and Tailwind CSS. This project demonstrates best practices for 
-              scalable React applications.
+              Calibre isn't just a planner. It's a reflection of your standards, your choices, your growth. 
+              Every block of time is a statement of who you are becoming. Built with modern technology 
+              and designed to elevate your daily routine to match your aspirations.
             </p>
             
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">

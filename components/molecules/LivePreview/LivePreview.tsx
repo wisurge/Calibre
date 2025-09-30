@@ -13,7 +13,7 @@ export const LivePreview = ({ themeColors, className }: LivePreviewProps) => {
         className="h-12 rounded-lg flex items-center justify-between px-4 text-white font-medium"
         style={{ backgroundColor: themeColors[0] }}
       >
-        <span>Routinsie App</span>
+        <span>Calibre App</span>
         <Sparkles className="w-4 h-4" />
       </div>
       <div 
@@ -33,6 +33,9 @@ export const LivePreview = ({ themeColors, className }: LivePreviewProps) => {
     </div>
   )
 }
+
+
+
 
 
 

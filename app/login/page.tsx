@@ -6,12 +6,14 @@ import Link from 'next/link'
 import { AuthForm, AuthFormData } from '@/components/molecules/AuthForm'
 import { supabase } from '@/lib/supabase'
 import { useNotifications } from '@/contexts/NotificationContext'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const { addNotification } = useNotifications()
+  const { signInWithGoogle } = useAuth()
 
   const handleLogin = async (data: AuthFormData) => {
     setIsLoading(true)
@@ -59,12 +61,34 @@ export default function LoginPage() {
     }
   }
 
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      await signInWithGoogle()
+      // The redirect will happen automatically, so we don't need to handle success here
+    } catch (err: any) {
+      console.error('Google sign-in error:', err)
+      setError(err.message || 'Google sign-in failed')
+      
+      addNotification({
+        type: 'error',
+        title: 'Google sign-in failed',
+        message: err.message || 'Please try again.',
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen theme-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <AuthForm
           mode="login"
           onSubmit={handleLogin}
+          onGoogleSignIn={handleGoogleSignIn}
           isLoading={isLoading}
           error={error || undefined}
           onModeChange={() => router.push('/signup')}

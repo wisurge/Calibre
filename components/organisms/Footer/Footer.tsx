@@ -27,28 +27,28 @@ export const Footer = () => {
     <footer className="theme-background border-t border-theme-border py-8 sm:py-12 mt-8 sm:mt-16">
       <div className="container mx-auto px-3 sm:px-4">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-6 sm:space-y-8 lg:space-y-0">
-          {/* Rachel's Personal Message */}
+          {/* Calibre Brand Message */}
           <div className="flex-1 max-w-md">
             <div className="flex items-center space-x-3 mb-3 sm:mb-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-theme-primary rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm sm:text-lg">R</span>
+                <span className="text-white font-bold text-sm sm:text-lg">C</span>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg lg:text-h4 theme-text">Hey there! I'm Rachel ✨</h3>
-                <p className="text-xs sm:text-sm theme-text-secondary">Founder & Chief Dreamer</p>
+                <h3 className="text-base sm:text-lg lg:text-h4 theme-text">Calibre</h3>
+                <p className="text-xs sm:text-sm theme-text-secondary">Your Personal Standards, Your Growth</p>
               </div>
             </div>
             <p className="text-xs sm:text-sm theme-text-secondary leading-relaxed mb-3 sm:mb-4">
-              I built Routinsie because I believe your daily routine shouldn't be boring. 
-              Every morning should feel like a fresh start, and every habit should spark joy. 
-              Here's to making productivity actually fun! 💫
+              Calibre isn't just a planner. It's a reflection of your standards, your choices, your growth. 
+              Every block of time is a statement of who you are becoming. 
+              Elevate your daily routine to match your aspirations.
             </p>
             <div className="flex items-center space-x-2 text-xs sm:text-sm theme-text-secondary">
-              <span>Made with</span>
+              <span>Built with</span>
               <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" />
               <span>&</span>
               <Coffee className="w-3 h-3 sm:w-4 sm:h-4 text-amber-600" />
-              <span>by Rachel</span>
+              <span>for growth</span>
             </div>
           </div>
           
@@ -57,7 +57,7 @@ export const Footer = () => {
             <h4 className="font-semibold theme-text text-xs sm:text-sm uppercase tracking-wide">Quick Links</h4>
             <div className="flex flex-col space-y-1 sm:space-y-2">
               <Link href="/about" className="text-xs sm:text-sm theme-text-secondary hover:theme-text transition-colors">
-                About Routinsie
+                About Calibre
               </Link>
               <Link href="/contact" className="text-xs sm:text-sm theme-text-secondary hover:theme-text transition-colors">
                 Get in Touch
@@ -73,32 +73,32 @@ export const Footer = () => {
           
           {/* Social & Connect */}
           <div className="flex flex-col space-y-3 sm:space-y-4">
-            <h4 className="font-semibold theme-text text-xs sm:text-sm uppercase tracking-wide">Let's Connect</h4>
+            <h4 className="font-semibold theme-text text-xs sm:text-sm uppercase tracking-wide">Connect</h4>
             <div className="flex space-x-3 sm:space-x-4">
               <a 
-                href="https://twitter.com/rachel_routinsie" 
+                href="https://twitter.com/calibre_app" 
                 className="theme-text-secondary hover:theme-text transition-colors"
-                aria-label="Follow Rachel on Twitter"
+                aria-label="Follow Calibre on Twitter"
               >
                 <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
               <a 
-                href="https://instagram.com/rachel_routinsie" 
+                href="https://instagram.com/calibre_app" 
                 className="theme-text-secondary hover:theme-text transition-colors"
-                aria-label="Follow Rachel on Instagram"
+                aria-label="Follow Calibre on Instagram"
               >
                 <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
               <a 
-                href="https://youtube.com/@rachel_routinsie" 
+                href="https://youtube.com/@calibre_app" 
                 className="theme-text-secondary hover:theme-text transition-colors"
-                aria-label="Subscribe to Rachel's YouTube"
+                aria-label="Subscribe to Calibre YouTube"
               >
                 <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </div>
             <p className="text-xs theme-text-secondary">
-              Drop me a line anytime! I love hearing from fellow productivity enthusiasts 🚀
+              Join the community of growth-focused individuals 🚀
             </p>
           </div>
         </div>
@@ -107,10 +107,10 @@ export const Footer = () => {
         <div className="border-t border-theme-border mt-6 sm:mt-8 pt-4 sm:pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
             <p className="text-xs theme-text-secondary text-center md:text-left">
-              © 2025 Routinsie. All rights reserved. Built with love by Rachel.
+              © 2025 Calibre. All rights reserved. Built for growth.
             </p>
             <p className="text-xs theme-text-secondary text-center md:text-right">
-              Making productivity fun, one routine at a time ✨
+              Your standards, your choices, your growth ✨
             </p>
           </div>
         </div>

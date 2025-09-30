@@ -35,86 +35,63 @@ const Logo = ({ className, size = 'md', variant = 'full' }: LogoProps) => {
         </linearGradient>
       </defs>
       
-      {/* Main circle representing a clock/routine */}
-      <circle
-        cx="16"
-        cy="16"
-        r="14"
+      {/* Main diamond representing precision and standards */}
+      <path
+        d="M16 2 L26 16 L16 30 L6 16 Z"
         fill="url(#logoGradient)"
       />
       
-      {/* Inner circle for depth */}
-      <circle
-        cx="16"
-        cy="16"
-        r="10"
+      {/* Inner diamond for depth */}
+      <path
+        d="M16 6 L22 16 L16 26 L10 16 Z"
         fill="none"
         stroke="white"
         strokeWidth="1.5"
         opacity="0.3"
       />
       
-      {/* Clock hands representing time management */}
-      <line
-        x1="16"
-        y1="16"
-        x2="16"
-        y2="8"
-        stroke="white"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <line
-        x1="16"
-        y1="16"
-        x2="20"
-        y2="16"
-        stroke="white"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      
-      {/* Center dot */}
+      {/* Central focus point representing personal standards */}
       <circle
         cx="16"
+        cy="16"
+        r="3"
+        fill="white"
+        opacity="0.9"
+      />
+      
+      {/* Corner accents representing growth points */}
+      <circle
+        cx="16"
+        cy="4"
+        r="1.5"
+        fill="white"
+        opacity="0.8"
+      />
+      <circle
+        cx="28"
         cy="16"
         r="1.5"
         fill="white"
+        opacity="0.8"
       />
-      
-      {/* Small dots representing routine points */}
       <circle
         cx="16"
-        cy="6"
-        r="1"
+        cy="28"
+        r="1.5"
         fill="white"
         opacity="0.8"
       />
+      <circle
+        cx="4"
+        cy="16"
+        r="1.5"
+        fill="white"
+        opacity="0.8"
+      />
+      
+      {/* Subtle accent dots for refinement */}
       <circle
         cx="22"
-        cy="16"
-        r="1"
-        fill="white"
-        opacity="0.8"
-      />
-      <circle
-        cx="16"
-        cy="26"
-        r="1"
-        fill="white"
-        opacity="0.8"
-      />
-      <circle
-        cx="10"
-        cy="16"
-        r="1"
-        fill="white"
-        opacity="0.8"
-      />
-      
-      {/* Additional accent dots for visual interest */}
-      <circle
-        cx="20"
         cy="8"
         r="0.5"
         fill="white"
@@ -122,20 +99,20 @@ const Logo = ({ className, size = 'md', variant = 'full' }: LogoProps) => {
       />
       <circle
         cx="24"
-        cy="12"
-        r="0.5"
-        fill="white"
-        opacity="0.6"
-      />
-      <circle
-        cx="8"
         cy="20"
         r="0.5"
         fill="white"
         opacity="0.6"
       />
       <circle
-        cx="12"
+        cx="8"
+        cy="12"
+        r="0.5"
+        fill="white"
+        opacity="0.6"
+      />
+      <circle
+        cx="10"
         cy="24"
         r="0.5"
         fill="white"
@@ -146,7 +123,7 @@ const Logo = ({ className, size = 'md', variant = 'full' }: LogoProps) => {
 
   const text = (
     <span className={cn('text-vibed theme-text font-bold', textSizeClasses[size])}>
-      Routinsie
+      Calibre
     </span>
   )
 
