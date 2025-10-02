@@ -39,7 +39,6 @@ export function useGsapAnimations({ prefersReducedMotion = false }: UseGsapAnima
             element,
             NodeFilter.SHOW_TEXT,
             null,
-            false
           )
           
           const textNodes: Text[] = []
