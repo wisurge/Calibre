@@ -1,6 +1,20 @@
 import { google } from 'googleapis'
 import { MeetingData } from '@/types/calendar'
 
+// Helper function to get the correct redirect URI
+function getRedirectUri(): string {
+  // In production, NEXTAUTH_URL should be set
+  if (process.env.NODE_ENV === 'production') {
+    if (!process.env.NEXTAUTH_URL) {
+      throw new Error('NEXTAUTH_URL environment variable is required in production')
+    }
+    return process.env.NEXTAUTH_URL
+  }
+  
+  // In development, use NEXTAUTH_URL if set, otherwise fall back to localhost
+  return process.env.NEXTAUTH_URL || 'http://localhost:3000'
+}
+
 export interface GoogleCalendarEvent {
   id: string
   summary: string
@@ -42,7 +56,7 @@ export class GoogleCalendarService {
     this.oauth2Client = new google.auth.OAuth2(
       process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       process.env.GOOGLE_CLIENT_SECRET,
-      `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/calendar/auth`
+      `${getRedirectUri()}/api/calendar/auth`
     )
   }
 

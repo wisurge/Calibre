@@ -9,27 +9,74 @@ The OAuth redirect URI was hardcoded to use `req.nextUrl.origin`, which defaults
 ## Solution Applied
 
 ### 1. Updated OAuth Route (`app/api/calendar/auth/route.ts`)
-- Changed redirect URI to use `process.env.NEXTAUTH_URL` with fallback to `req.nextUrl.origin`
+- Created `getRedirectUri()` helper function with environment-aware logic
+- **Production**: Requires `NEXTAUTH_URL` environment variable (fails fast if missing)
+- **Development**: Uses `NEXTAUTH_URL` if set, otherwise falls back to `req.nextUrl.origin`
 - Applied to both token exchange and initial OAuth URL generation
 
 ```typescript
-// Before
-redirect_uri: `${req.nextUrl.origin}/api/calendar/auth`
+// Helper function with environment-aware logic
+function getRedirectUri(req: NextRequest): string {
+  // In production, NEXTAUTH_URL should be set
+  if (process.env.NODE_ENV === 'production') {
+    if (!process.env.NEXTAUTH_URL) {
+      throw new Error('NEXTAUTH_URL environment variable is required in production')
+    }
+    return process.env.NEXTAUTH_URL
+  }
+  
+  // In development, use NEXTAUTH_URL if set, otherwise fall back to request origin
+  return process.env.NEXTAUTH_URL || req.nextUrl.origin
+}
 
-// After  
-redirect_uri: `${process.env.NEXTAUTH_URL || req.nextUrl.origin}/api/calendar/auth`
+// Usage
+redirect_uri: `${getRedirectUri(req)}/api/calendar/auth`
 ```
 
 ### 2. Updated Google Calendar Service (`lib/googleCalendar.ts`)
+- Added same `getRedirectUri()` helper function
 - Fixed redirect URI to use the correct endpoint (`/api/calendar/auth` instead of `/api/auth/callback/google`)
-- Added fallback to localhost for development
+- **Production**: Requires `NEXTAUTH_URL` (fails fast if missing)
+- **Development**: Uses `NEXTAUTH_URL` if set, otherwise falls back to localhost
 
 ```typescript
-// Before
-`${process.env.NEXTAUTH_URL}/api/auth/callback/google`
+// Helper function with environment-aware logic
+function getRedirectUri(): string {
+  if (process.env.NODE_ENV === 'production') {
+    if (!process.env.NEXTAUTH_URL) {
+      throw new Error('NEXTAUTH_URL environment variable is required in production')
+    }
+    return process.env.NEXTAUTH_URL
+  }
+  
+  return process.env.NEXTAUTH_URL || 'http://localhost:3000'
+}
 
-// After
-`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/calendar/auth`
+// Usage
+`${getRedirectUri()}/api/calendar/auth`
+```
+
+### 3. Updated Supabase Auth Context (`contexts/AuthContext.tsx`)
+- Fixed Supabase OAuth redirect to use environment-aware logic
+- **Production**: Requires `NEXT_PUBLIC_NEXTAUTH_URL` (fails fast if missing)
+- **Development**: Uses `NEXT_PUBLIC_NEXTAUTH_URL` if set, otherwise falls back to `window.location.origin`
+- Redirects to `/auth/callback` (Supabase's callback endpoint)
+
+```typescript
+// Helper function with environment-aware logic
+const getRedirectUri = () => {
+  if (process.env.NODE_ENV === 'production') {
+    if (!process.env.NEXT_PUBLIC_NEXTAUTH_URL) {
+      throw new Error('NEXT_PUBLIC_NEXTAUTH_URL environment variable is required in production')
+    }
+    return process.env.NEXT_PUBLIC_NEXTAUTH_URL
+  }
+  
+  return process.env.NEXT_PUBLIC_NEXTAUTH_URL || window.location.origin
+}
+
+// Usage
+redirectTo: `${getRedirectUri()}/auth/callback`
 ```
 
 ## Environment Variables Required
@@ -37,8 +84,9 @@ redirect_uri: `${process.env.NEXTAUTH_URL || req.nextUrl.origin}/api/calendar/au
 Create a `.env.local` file with:
 
 ```bash
-# Application URL (set to your production domain when deploying)
+# Application URLs (set to your production domain when deploying)
 NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_NEXTAUTH_URL=http://localhost:3000
 
 # Google OAuth Configuration
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id_here
@@ -49,15 +97,19 @@ NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
+**Note**: Both `NEXTAUTH_URL` (server-side) and `NEXT_PUBLIC_NEXTAUTH_URL` (client-side) are needed for the different OAuth flows.
+
 ## Google Cloud Console Configuration
 
 ### Development
 Add these authorized redirect URIs:
-- `http://localhost:3000/api/calendar/auth`
+- `http://localhost:3000/api/calendar/auth` (for custom Google Calendar OAuth)
+- `http://localhost:3000/auth/callback` (for Supabase OAuth)
 
 ### Production
 Add your production domain:
-- `https://yourdomain.com/api/calendar/auth`
+- `https://yourdomain.com/api/calendar/auth` (for custom Google Calendar OAuth)
+- `https://yourdomain.com/auth/callback` (for Supabase OAuth)
 
 ## Testing
 

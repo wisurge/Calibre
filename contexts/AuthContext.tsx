@@ -64,10 +64,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   const signInWithGoogle = async () => {
+    // Get the correct redirect URI based on environment
+    const getRedirectUri = () => {
+      // In production, NEXTAUTH_URL should be set
+      if (process.env.NODE_ENV === 'production') {
+        if (!process.env.NEXT_PUBLIC_NEXTAUTH_URL) {
+          throw new Error('NEXT_PUBLIC_NEXTAUTH_URL environment variable is required in production')
+        }
+        return process.env.NEXT_PUBLIC_NEXTAUTH_URL
+      }
+      
+      // In development, use NEXTAUTH_URL if set, otherwise fall back to window.location.origin
+      return process.env.NEXT_PUBLIC_NEXTAUTH_URL || window.location.origin
+    }
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${getRedirectUri()}/auth/callback`,
       },
     })
     
