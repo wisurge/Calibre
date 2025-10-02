@@ -287,6 +287,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
       </div>
 
       {/* Social Login Buttons */}
+      {/* Google sign-in temporarily disabled
       <div className="space-y-2">
         <Button
           type="button"
@@ -317,6 +318,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           Continue with Google
         </Button>
       </div>
+      */}
     </Card>
   )
 }

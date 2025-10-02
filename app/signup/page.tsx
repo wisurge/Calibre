@@ -71,26 +71,27 @@ export default function SignupPage() {
     }
   }
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true)
-    setError(null)
+  // Google sign-in temporarily disabled
+  // const handleGoogleSignIn = async () => {
+  //   setIsLoading(true)
+  //   setError(null)
 
-    try {
-      await signInWithGoogle()
-      // The redirect will happen automatically, so we don't need to handle success here
-    } catch (err: any) {
-      console.error('Google sign-in error:', err)
-      setError(err.message || 'Google sign-in failed')
+  //   try {
+  //     await signInWithGoogle()
+  //     // The redirect will happen automatically, so we don't need to handle success here
+  //   } catch (err: any) {
+  //     console.error('Google sign-in error:', err)
+  //     setError(err.message || 'Google sign-in failed')
       
-      addNotification({
-        type: 'error',
-        title: 'Google sign-in failed',
-        message: err.message || 'Please try again.',
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  //     addNotification({
+  //       type: 'error',
+  //       title: 'Google sign-in failed',
+  //       message: err.message || 'Please try again.',
+  //     })
+  //   } finally {
+  //     setIsLoading(false)
+  //   }
+  // }
 
   return (
     <div className="min-h-screen theme-background flex items-center justify-center p-4">
@@ -98,7 +99,7 @@ export default function SignupPage() {
         <AuthForm
           mode="signup"
           onSubmit={handleSignup}
-          onGoogleSignIn={handleGoogleSignIn}
+          onGoogleSignIn={undefined}
           isLoading={isLoading}
           error={error || undefined}
           onModeChange={() => router.push('/login')}

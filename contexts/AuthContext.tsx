@@ -27,11 +27,12 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false) // Start with false to not block UI
 
   useEffect(() => {
-    // Get initial session
+    // Get initial session with loading state only during the actual auth check
     const getSession = async () => {
+      setIsLoading(true)
       const { data: { session } } = await supabase.auth.getSession()
       setUser(session?.user || null)
       setIsLoading(false)
