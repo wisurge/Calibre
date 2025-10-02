@@ -9,14 +9,31 @@ import { useNotifications } from '@/contexts/NotificationContext'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function SignupPage() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isFormLoading, setIsFormLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const { addNotification } = useNotifications()
-  const { signInWithGoogle } = useAuth()
+  const { user, isLoading, signInWithGoogle } = useAuth()
+
+  // Redirect if user is already logged in
+  React.useEffect(() => {
+    if (user) {
+      router.push('/dashboard')
+    }
+  }, [user, router])
+
+  // Show nothing while auth is loading - prevents flash of signup form
+  if (isLoading) {
+    return null
+  }
+
+  // Don't render signup form if user is already logged in
+  if (user) {
+    return null
+  }
 
   const handleSignup = async (data: AuthFormData) => {
-    setIsLoading(true)
+    setIsFormLoading(true)
     setError(null)
 
     try {
@@ -67,7 +84,7 @@ export default function SignupPage() {
         message: err.message || 'Please try again.',
       })
     } finally {
-      setIsLoading(false)
+      setIsFormLoading(false)
     }
   }
 
@@ -100,7 +117,7 @@ export default function SignupPage() {
           mode="signup"
           onSubmit={handleSignup}
           onGoogleSignIn={undefined}
-          isLoading={isLoading}
+          isLoading={isFormLoading}
           error={error || undefined}
           onModeChange={() => router.push('/login')}
         />

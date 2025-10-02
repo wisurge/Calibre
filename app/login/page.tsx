@@ -9,14 +9,31 @@ import { useNotifications } from '@/contexts/NotificationContext'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isFormLoading, setIsFormLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
   const { addNotification } = useNotifications()
-  const { signInWithGoogle } = useAuth()
+  const { user, isLoading, signInWithGoogle } = useAuth()
+
+  // Redirect if user is already logged in
+  React.useEffect(() => {
+    if (user) {
+      router.push('/dashboard')
+    }
+  }, [user, router])
+
+  // Show nothing while auth is loading - prevents flash of login form
+  if (isLoading) {
+    return null
+  }
+
+  // Don't render login form if user is already logged in
+  if (user) {
+    return null
+  }
 
   const handleLogin = async (data: AuthFormData) => {
-    setIsLoading(true)
+    setIsFormLoading(true)
     setError(null)
 
     try {
@@ -57,12 +74,12 @@ export default function LoginPage() {
         message: err.message || 'Please check your credentials and try again.',
       })
     } finally {
-      setIsLoading(false)
+      setIsFormLoading(false)
     }
   }
 
   const handleGoogleSignIn = async () => {
-    setIsLoading(true)
+    setIsFormLoading(true)
     setError(null)
 
     try {
@@ -78,7 +95,7 @@ export default function LoginPage() {
         message: err.message || 'Please try again.',
       })
     } finally {
-      setIsLoading(false)
+      setIsFormLoading(false)
     }
   }
 
@@ -89,7 +106,7 @@ export default function LoginPage() {
           mode="login"
           onSubmit={handleLogin}
           onGoogleSignIn={handleGoogleSignIn}
-          isLoading={isLoading}
+          isLoading={isFormLoading}
           error={error || undefined}
           onModeChange={() => router.push('/signup')}
         />
