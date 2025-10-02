@@ -42,7 +42,7 @@ export class GoogleCalendarService {
     this.oauth2Client = new google.auth.OAuth2(
       process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       process.env.GOOGLE_CLIENT_SECRET,
-      `${process.env.NEXTAUTH_URL}/api/auth/callback/google`
+      `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/calendar/auth`
     )
   }
 

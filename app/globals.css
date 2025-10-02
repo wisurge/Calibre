@@ -123,6 +123,18 @@ html.loaded {
   animation: fadeIn 0.3s ease-out;
 }
 
+/* Typing cursor animation */
+.typing-cursor {
+  color: #3B82F6;
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

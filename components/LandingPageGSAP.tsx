@@ -196,44 +196,110 @@ export default function LandingPageGSAP() {
         <div className="absolute top-36 left-1/4 w-28 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent opacity-25 transform rotate-12 animate-pulse"></div>
         <div className="absolute bottom-48 right-1/3 w-20 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-25 transform -rotate-12 animate-pulse"></div>
         
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-5xl mx-auto space-y-12">
-            {/* Main Headline */}
-            <div ref={headlineRef} className="space-y-6 relative">
-              <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold text-vibed theme-text leading-tight relative ${spaceGrotesk.className}`}>
-                Your calendar is<br />
-                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent relative">
-                  who you are
-                </span><br />
-                <span className="text-3xl sm:text-4xl lg:text-5xl relative">
-                  and what you do
-                </span>
-              </h1>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            {/* Hero Content - Balanced Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Side - Text Content */}
+              <div ref={headlineRef} className="text-center lg:text-left">
+                <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold theme-text leading-tight mb-6 ${spaceGrotesk.className}`}>
+                  Your calendar is who you are and what you do
+                </h1>
+                
+                <p ref={subtitleRef} className={`text-lg sm:text-xl theme-text-secondary max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8 ${inter.className}`}>
+                  Transform your schedule into a reflection of your values and goals. 
+                  Track habits, set meaningful goals, and build the life you want.
+                </p>
+                
+                {/* CTA Buttons - Horizontal Layout */}
+                <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Link href="/signup">
+                    <Button variant="primary" size="lg" className="w-full sm:w-auto px-8 py-3 text-lg font-semibold">
+                      Get Started
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </Link>
+                  <Link href="/login">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 py-3 text-lg">
+                      Sign In
+                    </Button>
+                  </Link>
+                </div>
+              </div>
               
-              <p ref={subtitleRef} className={`text-xl sm:text-2xl theme-text-secondary max-w-4xl mx-auto leading-relaxed relative ${inter.className}`}>
-                Every appointment reveals your priorities. Every habit shapes your character. Every choice in your calendar 
-                is a vote for the person you're becoming. <span className="font-semibold text-blue-600 relative">
-                  This is your life, not just your schedule.
-                </span>
-              </p>
-            </div>
-            
-            {/* CTA Buttons */}
-            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
-              <Link href="/signup">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto px-12 py-5 text-xl font-bold relative overflow-hidden group shadow-2xl">
-                  <span className="relative z-10 flex items-center">
-                    Start Free - No Credit Card Required
-                    <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto px-8 py-4 text-lg border-2">
-                  Already have an account? Sign In
-                </Button>
-              </Link>
+              {/* Right Side - Professional Dashboard Mockup */}
+              <div className="flex justify-center lg:justify-end">
+                <div className="relative w-full max-w-md">
+                  {/* Dashboard Screenshot Mockup */}
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    {/* Header */}
+                    <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 border-b border-gray-200 dark:border-gray-600">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">Calibre Dashboard</div>
+                      </div>
+                    </div>
+                    
+                    {/* Dashboard Content */}
+                    <div className="p-4 space-y-4">
+                      {/* Calendar Widget */}
+                      <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Today's Schedule</h3>
+                          <div className="text-xs text-blue-600 dark:text-blue-400">9:00 AM</div>
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span className="text-xs text-gray-600 dark:text-gray-300">Morning Workout</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span className="text-xs text-gray-600 dark:text-gray-300">Team Meeting</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Progress Widget */}
+                      <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Habit Streak</h3>
+                          <div className="text-xs text-emerald-600 dark:text-emerald-400">7 days</div>
+                        </div>
+                        <div className="flex space-x-1">
+                          {[...Array(7)].map((_, i) => (
+                            <div key={i} className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* Goals Widget */}
+                      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Weekly Goals</h3>
+                          <div className="text-xs text-purple-600 dark:text-purple-400">3/5</div>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                          <div className="bg-purple-500 h-2 rounded-full" style={{ width: '60%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Floating Elements - Subtle */}
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full shadow-lg flex items-center justify-center">
+                    <div className="text-white text-xs">📊</div>
+                  </div>
+                  
+                  <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-emerald-500 rounded-full shadow-lg flex items-center justify-center">
+                    <div className="text-white text-xs">✅</div>
+                  </div>
+                </div>
+              </div>
             </div>
             
             {/* Trust Indicators */}

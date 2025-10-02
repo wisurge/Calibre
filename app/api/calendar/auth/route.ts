@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
             client_secret: GOOGLE_CLIENT_SECRET,
             code,
             grant_type: 'authorization_code',
-            redirect_uri: `${req.nextUrl.origin}/api/calendar/auth`,
+            redirect_uri: `${process.env.NEXTAUTH_URL || req.nextUrl.origin}/api/calendar/auth`,
           }),
         })
 
@@ -96,7 +96,7 @@ export async function GET(req: NextRequest) {
 
     const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth')
     authUrl.searchParams.set('client_id', GOOGLE_CLIENT_ID)
-    authUrl.searchParams.set('redirect_uri', `${req.nextUrl.origin}/api/calendar/auth`)
+    authUrl.searchParams.set('redirect_uri', `${process.env.NEXTAUTH_URL || req.nextUrl.origin}/api/calendar/auth`)
     authUrl.searchParams.set('response_type', 'code')
     authUrl.searchParams.set('scope', scopes)
     authUrl.searchParams.set('access_type', 'offline')

@@ -29,273 +29,138 @@ export function useGsapAnimations({ prefersReducedMotion = false }: UseGsapAnima
       // Hero Timeline - Orchestrated entrance
       const heroTimeline = gsap.timeline()
 
-      // Hero headline animation with word-by-word effect
+      // Hero section - completely static, no animations
       if (headlineRef.current) {
-        const headline = headlineRef.current
-        
-        // Get all text nodes and split them into words
-        const splitTextIntoWords = (element: HTMLElement) => {
-          const walker = document.createTreeWalker(
-            element,
-            NodeFilter.SHOW_TEXT,
-            null,
-          )
-          
-          const textNodes: Text[] = []
-          let node
-          while (node = walker.nextNode()) {
-            textNodes.push(node as Text)
-          }
-          
-          textNodes.forEach(textNode => {
-            const parent = textNode.parentElement
-            if (!parent) return
-            
-            const text = textNode.textContent || ''
-            const words = text.split(/(\s+)/) // Split by whitespace but keep the spaces
-            
-            words.forEach(word => {
-              if (word.trim()) {
-                const span = document.createElement('span')
-                span.textContent = word
-                span.style.display = 'inline-block'
-                span.style.opacity = '0'
-                span.style.transform = 'translateY(30px)'
-                parent.insertBefore(span, textNode)
-              } else if (word) {
-                // Keep whitespace
-                const span = document.createElement('span')
-                span.textContent = word
-                span.style.display = 'inline-block'
-                parent.insertBefore(span, textNode)
-              }
-            })
-            
-            parent.removeChild(textNode)
-          })
-        }
-
-        // Apply split text
-        splitTextIntoWords(headline)
-        const wordElements = headline.querySelectorAll('span')
-        
-        // Set initial state
-        gsap.set(wordElements, {
-          opacity: 0,
-          y: 30,
-          scale: 0.9
-        })
-
-        // Animate words sequentially with infinite loop
-        heroTimeline.to(wordElements, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: {
-            amount: 1.5,
-            from: 'start'
-          },
-          ease: 'power2.out'
-        })
-        .to(wordElements, {
-          opacity: 0,
-          y: -30,
-          scale: 0.9,
-          duration: 0.4,
-          stagger: {
-            amount: 1.5,
-            from: 'end'
-          },
-          ease: 'power2.in'
-        }, '+=2') // Wait 2 seconds before starting fade out
-        .set(wordElements, {
-          y: 30,
-          scale: 0.9
-        })
-        .repeat(-1) // Infinite loop
+        gsap.set(headlineRef.current, { opacity: 1 })
       }
 
-      // Subtitle animation
       if (subtitleRef.current) {
-        const subtitle = subtitleRef.current
-        const words = subtitle.textContent?.split(' ') || []
-        
-        subtitle.innerHTML = ''
-        words.forEach(word => {
-          const span = document.createElement('span')
-          span.textContent = word + ' '
-          span.style.display = 'inline-block'
-          span.style.opacity = '0'
-          span.style.transform = 'translateY(20px)'
-          subtitle.appendChild(span)
-        })
-
-        const wordElements = subtitle.querySelectorAll('span')
-        
-        heroTimeline.to(wordElements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.05,
-          ease: 'power2.out'
-        }, '-=0.8')
+        gsap.set(subtitleRef.current, { opacity: 1 })
       }
 
-      // CTA buttons animation
+      // CTA buttons - completely static, no animations
       if (ctaRef.current) {
         const buttons = ctaRef.current.querySelectorAll('a, button')
         
-        heroTimeline.fromTo(buttons, 
-          { opacity: 0, scale: 0.8, y: 20 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'back.out(1.7)'
-          }, '-=0.4'
-        )
-
-        // Primary CTA button pulse animation
-        const primaryButton = buttons[0]
-        if (primaryButton) {
-          gsap.to(primaryButton, {
-            scale: 1.02,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
-          })
-
-          // Hover effects
-          primaryButton.addEventListener('mouseenter', () => {
-            gsap.to(primaryButton, {
-              scale: 1.05,
-              boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)',
-              duration: 0.3,
-              ease: 'power2.out'
-            })
-          })
-
-          primaryButton.addEventListener('mouseleave', () => {
-            gsap.to(primaryButton, {
-              scale: 1.02,
-              boxShadow: '0 10px 20px rgba(59, 130, 246, 0.1)',
-              duration: 0.3,
-              ease: 'power2.out'
-            })
-          })
-        }
+        // Set buttons to be visible and static
+        gsap.set(buttons, {
+          opacity: 1,
+          scale: 1,
+          y: 0
+        })
       }
 
-      // Feature sections scroll-triggered animations
+      // Feature sections scroll-followed animations
       if (featuresRef.current) {
         const featureCards = featuresRef.current.querySelectorAll('.feature-card')
         
         featureCards.forEach((card, index) => {
           const isEven = index % 2 === 0
-          const direction = isEven ? -50 : 50
           
-          gsap.fromTo(card,
-            { 
-              opacity: 0, 
-              x: direction,
-              scale: 0.95
-            },
-            {
-              opacity: 1,
-              x: 0,
+          // Separate image and content elements
+          const featureImage = card.querySelector('.feature-image')
+          const featureContent = card.querySelector('.feature-content')
+          
+          // Animate feature image with scale-only animation
+          if (featureImage) {
+            gsap.set(featureImage, {
+              scale: 0.9,
+              y: 20
+            })
+            
+            gsap.to(featureImage, {
               scale: 1,
-              duration: 0.8,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 80%',
-                toggleActions: 'play none none reverse'
-              }
-            }
-          )
-
-          // Stagger child elements
-          const childElements = card.querySelectorAll('.feature-icon, .feature-title, .feature-description, .feature-button')
-          gsap.fromTo(childElements,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
               y: 0,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: 'power2.out',
+              ease: 'none', // Linear animation that follows scroll
               scrollTrigger: {
                 trigger: card,
-                start: 'top 80%',
+                start: 'top 100%', // Start when card enters viewport
+                end: 'top 30%', // End when card is 30% into viewport
+                scrub: 0.8, // Smooth scroll following
                 toggleActions: 'play none none reverse'
               }
-            }
-          )
+            })
+          }
+
+          // Animate feature content with scale-only animation
+          if (featureContent) {
+            const contentElements = featureContent.querySelectorAll('.feature-icon, .feature-title, .feature-subtitle, .feature-description, .feature-button')
+            
+            gsap.set(contentElements, {
+              scale: 0.95,
+              y: 10
+            })
+            
+            gsap.to(contentElements, {
+              scale: 1,
+              y: 0,
+              stagger: 0.05, // Subtle stagger for performance
+              ease: 'none', // Linear animation that follows scroll
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 80%', // Start when card is 80% into viewport
+                end: 'top 20%', // End when card is 20% into viewport
+                scrub: 1, // Smooth scroll following
+                toggleActions: 'play none none reverse'
+              }
+            })
+          }
         })
       }
 
-      // Testimonial cards animation
+      // Testimonial cards scale-only animation
       if (testimonialsRef.current) {
         const testimonialCards = testimonialsRef.current.querySelectorAll('.testimonial-card')
         
         testimonialCards.forEach((card, index) => {
-          gsap.fromTo(card,
-            { opacity: 0, y: 50, scale: 0.9 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.8,
-              delay: index * 0.2,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-              }
+          // Set initial state with scale-only positioning
+          gsap.set(card, {
+            y: 30,
+            scale: 0.95
+          })
+          
+          // Animate card entrance with scale-only animation
+          gsap.to(card, {
+            y: 0,
+            scale: 1,
+            ease: 'none', // Linear animation that follows scroll
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 100%', // Start when card enters viewport
+              end: 'top 30%', // End when card is 30% into viewport
+              scrub: 0.8, // Smooth scroll following
+              toggleActions: 'play none none reverse'
             }
-          )
+          })
 
-          // Star ratings scale animation
+          // Star ratings scale-only animation
           const stars = card.querySelectorAll('.star-rating')
-          gsap.fromTo(stars,
-            { scale: 0, rotation: 180 },
-            {
-              scale: 1,
-              rotation: 0,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: 'back.out(1.7)',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-              }
+          gsap.set(stars, {
+            scale: 0.8
+          })
+          
+          gsap.to(stars, {
+            scale: 1,
+            stagger: 0.05, // Subtle stagger for performance
+            ease: 'none', // Linear animation that follows scroll
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 80%', // Start when card is 80% into viewport
+              end: 'top 20%', // End when card is 20% into viewport
+              scrub: 1, // Smooth scroll following
+              toggleActions: 'play none none reverse'
             }
-          )
+          })
         })
       }
 
-      // Footer simple fade-in
+      // Footer - no animation, stays static
       if (footerRef.current) {
-        gsap.fromTo(footerRef.current,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: footerRef.current,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse'
-            }
-          }
-        )
+        gsap.set(footerRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1
+        })
       }
 
     }, heroRef)
